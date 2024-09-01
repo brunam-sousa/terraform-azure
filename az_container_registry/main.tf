@@ -26,20 +26,20 @@ resource "azurerm_container_registry" "acr" {
     identity_client_id = azurerm_user_assigned_identity.mgdIdentity.client_id
   }
 
-# georeplication, so that it serves multiple regions using a single ACR registry
-# this configuration is optional 
-# georeplications {
-#    location                = "Australia Central"
-#    zone_redundancy_enabled = false
-#    tags                    = {}
-#  }
+  # georeplication, so that it serves multiple regions using a single ACR registry
+  # this configuration is optional 
+  # georeplications {
+  #    location                = "Australia Central"
+  #    zone_redundancy_enabled = false
+  #    tags                    = {}
+  #  }
 
 }
 
 
 resource "terraform_data" "acrbuild" {
   provisioner "local-exec" {
-    command = "az acr build -r ${azurerm_container_registry.acr.name} --image devox:v2 -f Dockerfile /home/bruna/devox_project"
+    command = "az acr build -r ${azurerm_container_registry.acr.name} --image devox:v2 -f /home/bruna/devox_project/Dockerfile /home/bruna/devox_project"
   }
 }
 

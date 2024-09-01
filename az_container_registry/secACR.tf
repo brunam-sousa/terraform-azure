@@ -72,7 +72,7 @@ resource "azurerm_user_assigned_identity" "mgdIdentity" {
   name                = "acr-admin"
 }
 
-data "azurerm_user_assigned_identity" "identity" {
+data "azurerm_user_assigned_identity" "mgdIdentity" {
   resource_group_name = azurerm_resource_group.rg.name
   name                = "acr-admin"
 }
@@ -102,7 +102,7 @@ resource "azurerm_key_vault_access_policy" "accesspolManagedIdentity" {
   key_vault_id = azurerm_key_vault.azvault.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
   #object_id    = data.azuread_service_principal.serviceprincipal.object_id # give a service principal account access to the vault with the permissions listed under key_permissions
-  object_id    = data.azurerm_user_assigned_identity.identity.id 
+  object_id = data.azurerm_user_assigned_identity.mgdIdentity.principal_id
   key_permissions = [
     "List",
     "Get",
