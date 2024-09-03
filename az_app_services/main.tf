@@ -37,9 +37,10 @@ resource "azurerm_linux_web_app" "webapp" {
     always_on           = "false" # always_on cannot be set to true when using Free, F1, D1 Sku
     minimum_tls_version = "1.2"
     application_stack {
-      docker_image_name = var.acr_image
-      docker_registry_url = var.acr_server
-      docker_registry_username =  var.acr_user
+      # this vars are credentials (Acess Keys) to use Azure Container Registry
+      docker_image_name        = var.acr_image
+      docker_registry_url      = var.acr_server
+      docker_registry_username = var.acr_user
       docker_registry_password = var.acr_password
     }
     #ip_restriction {

@@ -4,7 +4,7 @@
 
 variable "acr_image" {
   type    = string
-  default = "ch03/image01:v1"
+  default = "devox:v2"
 }
 
 variable "acr_user" {

@@ -7,7 +7,7 @@ terraform {            # this block contains Terraform Settings
   required_providers { # providers are installed from Terraform Registry
     azurerm = {
       source  = "hashicorp/azurerm" # shorthand for registry.terraform.io/hashicorp/azurerm
-      version = ">=3.112.0"          # without, terraform assume the latest version
+      version = ">=3.112.0"         # without, terraform assume the latest version
     }
   }
   required_version = ">=1.8.0"

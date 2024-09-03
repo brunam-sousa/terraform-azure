@@ -21,20 +21,20 @@
 # VNET BLOCK 
 ##################################
 resource "azurerm_virtual_network" "azvnet" {
-  name = "VnetWebApp"
-  location = azurerm_resource_group.rg.location
+  name                = "VnetWebApp"
+  location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  address_space = ["10.0.0.0/16"]
+  address_space       = ["10.0.0.0/16"]
 }
 
 ##################################
 # SUBNET BLOCK 
 ##################################
 resource "azurerm_subnet" "webappsubnet" {
-  name = "webappsubnet"
-  resource_group_name = azurerm_resource_group.rg.name
+  name                 = "webappsubnet"
+  resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.azvnet.name
-  address_prefixes = ["10.0.1.0/24"]
+  address_prefixes     = ["10.0.1.0/24"]
   # When you delegate a subnet to an Azure service, you allow
   # that service to establish some basic network configuration
   # rules for that subnet, which help the Azure service operate
@@ -50,9 +50,9 @@ resource "azurerm_subnet" "webappsubnet" {
 }
 
 resource "azurerm_subnet" "privatesubnet" {
-  name = "privatesubnet"
-  resource_group_name = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.azvnet.name
-  address_prefixes = ["10.0.2.0/24"]
-  private_endpoint_network_policies =  "Enabled"
+  name                              = "privatesubnet"
+  resource_group_name               = azurerm_resource_group.rg.name
+  virtual_network_name              = azurerm_virtual_network.azvnet.name
+  address_prefixes                  = ["10.0.2.0/24"]
+  private_endpoint_network_policies = "Enabled"
 }
