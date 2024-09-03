@@ -1,0 +1,26 @@
+ trigger:- none
+ pool:
+ vmImage: ubuntu-latest
+ steps:- task: TerraformInstaller@0
+ inputs:
+ terraformVersion: 'latest'- task: TerraformTaskV3@3
+ inputs:
+ provider: 'azurerm'
+ command: 'init'
+ workingDirectory: '$(System.DefaultWorkingDirectory)/Create_ACR'
+ backendServiceArm: 'AZURE SUBSCRIPTION DETAILS'
+ backendAzureRmResourceGroupName: 'tfstate'
+ backendAzureRmStorageAccountName: 'tfstates14w8'
+ backendAzureRmContainerName: 'tfstate'
+ backendAzureRmKey: 'Create_acr.terraform.tfstate'- task: TerraformTaskV3@3
+ inputs:
+ provider: 'azurerm'
+ command: 'plan
+  workingDirectory: '$(System.DefaultWorkingDirectory)/chapter06/
+ Create_ACR'
+ environmentServiceNameAzureRM: 'AZURE SUBSCRIPTION DETAILS''- task: TerraformTaskV3@3
+ inputs:
+ provider: 'azurerm'
+ command: 'apply'
+ workingDirectory: '$(System.DefaultWorkingDirectory)/Create_ACR'
+ environmentServiceNameAzureRM: 'AZURE SUBSCRIPTION DETAILS''
