@@ -9,6 +9,11 @@
 # > mount data volume using Az File Share
 data "azurerm_client_config" "current" {}
 
+import {
+  to = azurerm_resource_group.rg
+  id = "[import ID of the resource]"
+}
+
 resource "azurerm_resource_group" "rg" {
   name     = "myResourceGroup"
   location = "eastus"
@@ -18,10 +23,12 @@ resource "azurerm_resource_group" "rg" {
 # AZURE CONTAINER INSTANCE BLOCK
 # The following code creates a Linux ACI with two CPUs
 # open port 80 for incoming traffic from the internet. 
+# A container group is a collection of containers that are scheduled on the same host computer
+# Containers in a container group share lifecycle, resources, local network, and storage volumes.
 ##################################
 
 resource "azurerm_container_group" "acigroup" {
-  name = "chap4ACI"
+  name = "acichap04"
   location = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   ip_address_type = "Public"
@@ -47,7 +54,7 @@ resource "azurerm_container_group" "acigroup" {
   # if this block is repeating, so we had a multi ACI container  
   container {
     name = "web-server"
-    image = var.acrimage
+    image = "${var.acrserver}/${var.acrimage}"
     cpu = "2"
     memory = "4"
 

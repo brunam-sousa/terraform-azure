@@ -10,10 +10,10 @@
 # AZURE STORAGE ACCOUNT BLOCK
 ##################################
 resource "azurerm_storage_account" "storageact" {
-  name = "stgChapt4"
-  resource_group_name = azurerm_resource_group.rg.name
-  location = azurerm_resource_group.rg.location
-  account_tier = "Standard"
+  name                     = "stgchapt4"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  account_tier             = "Standard"
   account_replication_type = "LRS"
 
 }
@@ -24,7 +24,7 @@ resource "azurerm_storage_account" "storageact" {
 # this code create a file share with 50GB storage quote
 ##################################
 resource "azurerm_storage_share" "share" {
-  name = "acishare"
+  name                 = "acishare"
   storage_account_name = azurerm_storage_account.storageact.name
-  quota = 50
+  quota                = 50
 }

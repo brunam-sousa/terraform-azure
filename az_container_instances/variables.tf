@@ -11,7 +11,7 @@ variable "acruser" {
 
 variable "acrserver" {
   type    = string
-  default = "https://acrtempbruna.azurecr.io"
+  default = "acrtempbruna.azurecr.io"
 }
 
 # $ terraform apply -var="acrpassword= ACR PASSWORD"
