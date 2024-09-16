@@ -18,3 +18,9 @@ variable "acrserver" {
 variable "acrpassword" {
   type = string
 }
+
+variable "resourceGroup_id" {
+  description = "Id of resource group previously created"
+  type        = string
+  sensitive   = true
+}
