@@ -19,6 +19,7 @@ variable "acrpassword" {
   type = string
 }
 
+# this value is configured in a .tfvars file
 variable "resourceGroup_id" {
   description = "Id of resource group previously created"
   type        = string
