@@ -75,7 +75,7 @@ resource "azurerm_user_assigned_identity" "mgdIdentity" {
 data "azurerm_user_assigned_identity" "dataIdentity" {
   resource_group_name = azurerm_resource_group.rg.name
   name                = "acr-admin"
-  depends_on = [ azurerm_user_assigned_identity.mgdIdentity ] # without this we had a error: 'acr-admin was not found'
+  depends_on          = [azurerm_user_assigned_identity.mgdIdentity] # without this we had a error: 'acr-admin was not found'
 }
 
 ###########################
