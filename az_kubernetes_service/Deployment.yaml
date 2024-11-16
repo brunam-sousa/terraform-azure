@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+spec: 
+  # ReplicaSet specification
+  # replicas is optional, default 1
+  replicas: 1 # If a HorizontalPodAutoscaler (or any similar API for horizontal scaling) is managing scaling for a Deployment, don't set .spec.replicas.
+  selector: # define how the created ReplicaSet find which Pods to manage
+    matchLabels:
+      app: web-server # find for a pod definition with label is a map {app: webserver}
+  template: # pod template
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux # to tell your AKS cluster to run the sample application's pod on a node that can run Linux containers
+      containers: # begin the pod definition
+      - name: web-server
+        image: devox:v2
+        resources: # define how much of each resources (CPU, RAM and otherd) that the container needs
+          # the VM used is Standard_D2_v2 with 2 vCPUs and 7GB memory
+          requests: # Minimum amount of resources requested
+            # cpu units is equivalent to 1 physical CPU core or 1 virtual core
+            cpu: ´100m # 250 millicores (millicpu). Could be used 0.25
+            # suffixes: E, P, T, G, M, k or power-of-two equivalents: Ei, Pi, Ti, Gi, Mi, Ki
+            memory: 128Mi # 64Mebibytes
+          # a container is not allowed to use more than its resource limit
+          # if the container tries to consume more than especified, the system kernel terminates the process, with an out of memory error
+          limits: 
+            cpu: 250m
+            memory: 257Mi
+        ports:
+        - containerPort: 80
+          name: devox # Naming ports allows you to change the exposed port without changing files that reference that port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-server
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: web-server

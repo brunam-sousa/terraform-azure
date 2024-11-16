@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: myAzFile
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: myAzFile
+  resources:
+    requests:
+      storage: 100Gi
